@@ -30,12 +30,12 @@ class RestApiManager: NSObject {
         
         let session = URLSession.shared
         
-        let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
             if let jsonData = data {
                 let json:JSON = JSON(data: jsonData)
-                onCompletion(json, error)
+                onCompletion(json, error as NSError?)
             } else {
-                onCompletion(nil, error)
+                onCompletion(nil, error as NSError?)
             }
         })
         task.resume()
@@ -50,24 +50,21 @@ class RestApiManager: NSObject {
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
-        do {
-            // Set the POST body for the request
-            let postData: Data = body.data(using: String.Encoding.ascii, allowLossyConversion: true)!
-            request.httpBody = postData
-            let session = URLSession.shared
-            
-            let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
-                if let jsonData = data {
-                    let json:JSON = JSON(data: jsonData)
-                    onCompletion(json, nil)
-                } else {
-                    onCompletion(nil, error)
-                }
-            })
-            task.resume()
-        } catch {
-            // Create your personal error
-            onCompletion(nil, nil)
-        }
+        
+        // Set the POST body for the request
+        let postData: Data = body.data(using: String.Encoding.ascii, allowLossyConversion: true)!
+        request.httpBody = postData
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+            if let jsonData = data {
+                let json:JSON = JSON(data: jsonData)
+                onCompletion(json, nil)
+            } else {
+                onCompletion(nil, error as NSError?)
+            }
+        })
+        task.resume()
+        
     }
 }
