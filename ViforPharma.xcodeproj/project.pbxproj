@@ -263,6 +263,7 @@
 				TargetAttributes = {
 					C46CEBA91D0EB7AC0003D79F = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = N7956XYWZ3;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -503,6 +504,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = N7956XYWZ3;
 				INFOPLIST_FILE = ViforPharma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.viforpharma.ViforPharma;
@@ -520,6 +522,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = N7956XYWZ3;
 				INFOPLIST_FILE = ViforPharma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.viforpharma.ViforPharma;
