@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class LoadingOverlay{
+open class LoadingOverlay{
     
     var overlayView = UIView()
     var activityIndicator = UIActivityIndicatorView()
@@ -21,7 +21,7 @@ public class LoadingOverlay{
         return Static.instance
     }
     
-    public func showOverlay(view: UIView) {
+    open func showOverlay(_ view: UIView) {
         
         overlayView.frame = view.frame
         overlayView.center = view.center
@@ -30,9 +30,9 @@ public class LoadingOverlay{
         overlayView.clipsToBounds = true
         overlayView.layer.cornerRadius = 10
         
-        activityIndicator.frame = CGRectMake(0, 0, 40, 40)
-        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
-        activityIndicator.center = CGPointMake(overlayView.bounds.width / 2, overlayView.bounds.height / 2)
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        activityIndicator.activityIndicatorViewStyle = .whiteLarge
+        activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2, y: overlayView.bounds.height / 2)
         
         overlayView.addSubview(activityIndicator)
         view.addSubview(overlayView)
@@ -40,7 +40,7 @@ public class LoadingOverlay{
         activityIndicator.startAnimating()
     }
     
-    public func hideOverlayView() {
+    open func hideOverlayView() {
         activityIndicator.stopAnimating()
         overlayView.removeFromSuperview()
     }

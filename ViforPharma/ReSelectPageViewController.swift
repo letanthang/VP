@@ -12,7 +12,7 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
     
     weak var reSelectDelegate: ReSelectPageViewControllerDelegate?
     
-    private(set) lazy var orderedViewControllers: [UIViewController] = {
+    fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
         // The view controllers will be shown in this order
         return [self.newViewController("ReSelectPrimary"),
             self.newViewController("ReSelectSecondary")]
@@ -39,7 +39,7 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
     func scrollToNextViewController() {
         if let visibleViewController = viewControllers?.first,
             let nextViewController = pageViewController(self,
-                viewControllerAfterViewController: visibleViewController) {
+                viewControllerAfter: visibleViewController) {
                     scrollToViewController(nextViewController)
         }
     }
@@ -52,16 +52,16 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
      */
     func scrollToViewController(index newIndex: Int) {
         if let firstViewController = viewControllers?.first,
-            let currentIndex = orderedViewControllers.indexOf(firstViewController) {
-                let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .Forward : .Reverse
+            let currentIndex = orderedViewControllers.index(of: firstViewController) {
+                let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
                 let nextViewController = orderedViewControllers[newIndex]
                 scrollToViewController(nextViewController, direction: direction)
         }
     }
     
-    private func newViewController(name: String) -> UIViewController {
+    fileprivate func newViewController(_ name: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
-            instantiateViewControllerWithIdentifier("\(name)ViewController")
+            instantiateViewController(withIdentifier: "\(name)ViewController")
     }
     
     /**
@@ -69,8 +69,8 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
      
      - parameter viewController: the view controller to show.
      */
-    private func scrollToViewController(viewController: UIViewController,
-        direction: UIPageViewControllerNavigationDirection = .Forward) {
+    fileprivate func scrollToViewController(_ viewController: UIViewController,
+        direction: UIPageViewControllerNavigationDirection = .forward) {
             setViewControllers([viewController],
                 direction: direction,
                 animated: true,
@@ -85,20 +85,20 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
     /**
      Notifies '_tutorialDelegate' that the current page index was updated.
      */
-    private func notifyTutorialDelegateOfNewIndex() {
+    fileprivate func notifyTutorialDelegateOfNewIndex() {
         if let firstViewController = viewControllers?.first,
-            let index = orderedViewControllers.indexOf(firstViewController) {
+            let index = orderedViewControllers.index(of: firstViewController) {
             reSelectDelegate?.reSelectPageViewController(self,
                                                          didUpdatePageIndex: index)
         }
     }
     
     // MARK: UIPageViewControllerDelegate
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if completed {
             self.notifyTutorialDelegateOfNewIndex()
@@ -106,9 +106,9 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
     }
     
     // MARK: UIPageViewControllerDataSource
-    func pageViewController(pageViewController: UIPageViewController,
-        viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
             
@@ -128,9 +128,9 @@ class ReSelectPageViewController: UIPageViewController, UIPageViewControllerDele
             return orderedViewControllers[previousIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController,
-        viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
             
@@ -161,7 +161,7 @@ protocol ReSelectPageViewControllerDelegate: class {
      - parameter tutorialPageViewController: the TutorialPageViewController instance
      - parameter count: the total number of pages.
      */
-    func reSelectPageViewController(reSelectPageViewController: ReSelectPageViewController,
+    func reSelectPageViewController(_ reSelectPageViewController: ReSelectPageViewController,
                                     didUpdatePageCount count: Int)
     
     /**
@@ -170,7 +170,7 @@ protocol ReSelectPageViewControllerDelegate: class {
      - parameter tutorialPageViewController: the TutorialPageViewController instance
      - parameter index: the index of the currently visible page.
      */
-    func reSelectPageViewController(reSelectPageViewController: ReSelectPageViewController,
+    func reSelectPageViewController(_ reSelectPageViewController: ReSelectPageViewController,
                                     didUpdatePageIndex index: Int)
     
 }

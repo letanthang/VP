@@ -20,10 +20,10 @@ class ArticleNormalCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        let maskPath = UIBezierPath(roundedRect: banner.bounds, byRoundingCorners: [.TopLeft, .BottomLeft], cornerRadii: CGSizeMake(8, 8))
+        let maskPath = UIBezierPath(roundedRect: banner.bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: 8, height: 8))
         let maskLayer = CAShapeLayer()
         maskLayer.frame = banner.bounds
-        maskLayer.path  = maskPath.CGPath
+        maskLayer.path  = maskPath.cgPath
         banner.layer.mask = maskLayer
         
         
@@ -32,7 +32,7 @@ class ArticleNormalCell: UITableViewCell {
         bgItem.layer.masksToBounds = true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

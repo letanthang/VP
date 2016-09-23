@@ -23,23 +23,23 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: textCellIdentifier)
+        self.tableView.register(nib, forCellReuseIdentifier: textCellIdentifier)
         
     }
-    @IBAction func didTabNext(sender: AnyObject) {
-        if let parentVC = self.parentViewController {
+    @IBAction func didTabNext(_ sender: AnyObject) {
+        if let parentVC = self.parent {
             if let parentVC = parentVC as? SelectPageViewController {
                 // parentVC is SelectPageViewController
                 
                 // this is primary language screen --> So need to check validate TA
-                let userTaArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+                let userTaArr: Array = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
                 
                 if userTaArr.count <= 0 {
                     self.showErrorMessage("Iron World", message: CHECK_INPUT_SELECT_TA);
@@ -54,7 +54,7 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         calculateCellHeight()
         
         // Clear all item in ta list
@@ -73,7 +73,7 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: - Get API Data Function
-    private func getTa() {
+    fileprivate func getTa() {
         // Get ta from server
         let body: String = ""
         
@@ -85,7 +85,7 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // Callback Function
-    func getTaCallback(json: JSON) -> Void {
+    func getTaCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -110,7 +110,7 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.taItems.append(TaAndLanguageObj(json: entry))
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -122,19 +122,19 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
 
     }
     
     // Save TA to server
-    private func saveTaToServer() {
-        let userTaArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+    fileprivate func saveTaToServer() {
+        let userTaArr: Array = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
         
         if userTaArr.count > 0 {
             var taIdStr = ""
             
-            for var i = 0; i < userTaArr.count; i++ {
+            for i in 0 ..< userTaArr.count {
                 if !taIdStr.isEmpty {
                     taIdStr += ","
                 }
@@ -143,7 +143,7 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
             
             
             // Get user id
-            let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+            let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
             
             let body: String = "userId=" + String(userId) + "&subscribeTAId=" + taIdStr
             
@@ -172,58 +172,58 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taItems.count
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heightCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier(textCellIdentifier) as! CustomTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: textCellIdentifier) as! CustomTableViewCell
         
-        let userTaArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+        let userTaArr: Array = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
         
-        if self.taItems.count >= indexPath.row {
-            let ta = taItems[indexPath.row]
+        if self.taItems.count >= (indexPath as NSIndexPath).row {
+            let ta = taItems[(indexPath as NSIndexPath).row]
             
             cell.cellText.text = ta.name
             cell.tag = ta.id
             
-            for var i = 0; i < userTaArr.count; i++ {
+            for i in 0 ..< userTaArr.count {
                 if userTaArr[i] == cell.tag {
                     cell.cellBg.image = UIImage(named: "cell_bg_on")
                     cell.cellText.textColor = UIColor(red: 44/255, green: 73/255, blue: 130/255, alpha: 1)
                     break
                 } else {
                     cell.cellBg.image = UIImage(named: "cell_bg_off")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                 }
             }
         }
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row \(indexPath.row) selected")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Row \((indexPath as NSIndexPath).row) selected")
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableViewCell
-        var userTaArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
+        var userTaArr: Array = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
         
         if userTaArr.count > 0 {
             var indexUnSelect = -1
             
-            for var i = 0; i < userTaArr.count; i++ {
+            for i in 0 ..< userTaArr.count {
                 if userTaArr[i] == selectedCell.tag {
                     indexUnSelect = i;
                     break;
@@ -233,9 +233,9 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
             if indexUnSelect >= 0 {
                 // UnSelected this row
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_off")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
-                userTaArr.removeAtIndex(indexUnSelect)
+                userTaArr.remove(at: indexUnSelect)
             } else {
                 // Selected
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_on")
@@ -253,7 +253,7 @@ class SelectTAViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         // Save data
-        NSUserDefaults.standardUserDefaults().setObject( userTaArr, forKey: USER_TA_KEY)
+        UserDefaults.standard.set( userTaArr, forKey: USER_TA_KEY)
         
     }
 

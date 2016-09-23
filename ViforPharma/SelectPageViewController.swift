@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class SelectPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource{
     
-    private(set) lazy var orderedViewControllers: [UIViewController] = {
+    fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
         // The view controllers will be shown in this order
         return [self.newViewController("SelectTA"),
             self.newViewController("SelectPrimaryLang"),
@@ -35,7 +35,7 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
     func scrollToNextViewController() {
         if let visibleViewController = viewControllers?.first,
             let nextViewController = pageViewController(self,
-                viewControllerAfterViewController: visibleViewController) {
+                viewControllerAfter: visibleViewController) {
                     scrollToViewController(nextViewController)
         }
     }
@@ -48,16 +48,16 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
      */
     func scrollToViewController(index newIndex: Int) {
         if let firstViewController = viewControllers?.first,
-            let currentIndex = orderedViewControllers.indexOf(firstViewController) {
-                let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .Forward : .Reverse
+            let currentIndex = orderedViewControllers.index(of: firstViewController) {
+                let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
                 let nextViewController = orderedViewControllers[newIndex]
                 scrollToViewController(nextViewController, direction: direction)
         }
     }
     
-    private func newViewController(name: String) -> UIViewController {
+    fileprivate func newViewController(_ name: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
-            instantiateViewControllerWithIdentifier("\(name)ViewController")
+            instantiateViewController(withIdentifier: "\(name)ViewController")
     }
     
     /**
@@ -65,8 +65,8 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
      
      - parameter viewController: the view controller to show.
      */
-    private func scrollToViewController(viewController: UIViewController,
-        direction: UIPageViewControllerNavigationDirection = .Forward) {
+    fileprivate func scrollToViewController(_ viewController: UIViewController,
+        direction: UIPageViewControllerNavigationDirection = .forward) {
             setViewControllers([viewController],
                 direction: direction,
                 animated: true,
@@ -80,7 +80,7 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
     var isNeedToCheck = true;
     
     // MARK: UIPageViewControllerDelegate
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         if pendingViewControllers.first?.view.tag == 1 {
             isNeedToCheck = false;
         } else {
@@ -88,7 +88,7 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
         }
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             // Save data
             if previousViewControllers.first?.view.tag == 1 {
@@ -103,7 +103,7 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
         
         if previousViewControllers.first?.view.tag == 1 {
             // this is primary language screen --> So need to check validate TA
-            let userTaArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+            let userTaArr: Array = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
             
             if userTaArr.count <= 0 {
                 self.showErrorMessageWithAction("Iron World", message: CHECK_INPUT_SELECT_TA, pageIndex: 0);
@@ -111,7 +111,7 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
             
         } else if previousViewControllers.first?.view.tag == 2 && isNeedToCheck {
             // this is secondary language --> So need to check validate primary language
-            let userPrimaryLang: Int = NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY)
+            let userPrimaryLang: Int = UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY)
             
             if userPrimaryLang == 0 {
                 self.showErrorMessageWithAction("Iron World", message: CHECK_INPUT_SELECT_LANGUAGE, pageIndex: 1);
@@ -120,13 +120,13 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
     }
 
     // Call api save Ta to server
-    private func saveTaToServer() {
-        let userTaArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+    fileprivate func saveTaToServer() {
+        let userTaArr: Array = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
         
         if userTaArr.count > 0 {
             var taIdStr = ""
             
-            for var i = 0; i < userTaArr.count; i++ {
+            for i in 0 ..< userTaArr.count {
                 if !taIdStr.isEmpty {
                     taIdStr += ","
                 }
@@ -135,7 +135,7 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
             
             
             // Get user id
-            let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+            let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
             
             let body: String = "userId=" + String(userId) + "&subscribeTAId=" + taIdStr
             
@@ -158,13 +158,13 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
     }
     
     // Call api save primary language to server
-    private func savePrimaryLangToServer() {
-        let userPrimaryLang: Int = NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY)
+    fileprivate func savePrimaryLangToServer() {
+        let userPrimaryLang: Int = UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY)
         
         if userPrimaryLang != 0 {
             
             // Get user id
-            let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+            let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
             
             let body: String = "userId=" + String(userId) + "&langId=" + String(userPrimaryLang)
             
@@ -187,9 +187,9 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
     }
     
     // MARK: UIPageViewControllerDataSource
-    func pageViewController(pageViewController: UIPageViewController,
-        viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
             
@@ -209,9 +209,9 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
             return orderedViewControllers[previousIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController,
-        viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
             
@@ -232,18 +232,18 @@ class SelectPageViewController: UIPageViewController, UIPageViewControllerDelega
             return orderedViewControllers[nextIndex]
     }
     
-    func showErrorMessageWithAction(title: String, message: String, pageIndex: Int) {
+    func showErrorMessageWithAction(_ title: String, message: String, pageIndex: Int) {
         // create the alert
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
             self.scrollToViewController(index: pageIndex)
         }))
         
         // show the alert
-        dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
         }
     }
 

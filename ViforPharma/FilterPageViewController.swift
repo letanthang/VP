@@ -12,7 +12,7 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
 
     weak var filterDelegate: FilterPageViewControllerDelegate?
     
-    private(set) lazy var orderedViewControllers: [UIViewController] = {
+    fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
         // The view controllers will be shown in this order
         return [self.newViewController("ChooseTaFilter"),
             self.newViewController("ChooseLanguageFilter")]
@@ -39,7 +39,7 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
     func scrollToNextViewController() {
         if let visibleViewController = viewControllers?.first,
             let nextViewController = pageViewController(self,
-                viewControllerAfterViewController: visibleViewController) {
+                viewControllerAfter: visibleViewController) {
                     scrollToViewController(nextViewController)
         }
     }
@@ -52,16 +52,16 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
      */
     func scrollToViewController(index newIndex: Int) {
         if let firstViewController = viewControllers?.first,
-            let currentIndex = orderedViewControllers.indexOf(firstViewController) {
-                let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .Forward : .Reverse
+            let currentIndex = orderedViewControllers.index(of: firstViewController) {
+                let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
                 let nextViewController = orderedViewControllers[newIndex]
                 scrollToViewController(nextViewController, direction: direction)
         }
     }
     
-    private func newViewController(name: String) -> UIViewController {
+    fileprivate func newViewController(_ name: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
-            instantiateViewControllerWithIdentifier("\(name)ViewController")
+            instantiateViewController(withIdentifier: "\(name)ViewController")
     }
     
     /**
@@ -69,8 +69,8 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
      
      - parameter viewController: the view controller to show.
      */
-    private func scrollToViewController(viewController: UIViewController,
-        direction: UIPageViewControllerNavigationDirection = .Forward) {
+    fileprivate func scrollToViewController(_ viewController: UIViewController,
+        direction: UIPageViewControllerNavigationDirection = .forward) {
             setViewControllers([viewController],
                 direction: direction,
                 animated: true,
@@ -85,20 +85,20 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
     /**
      Notifies '_tutorialDelegate' that the current page index was updated.
      */
-    private func notifyTutorialDelegateOfNewIndex() {
+    fileprivate func notifyTutorialDelegateOfNewIndex() {
         if let firstViewController = viewControllers?.first,
-            let index = orderedViewControllers.indexOf(firstViewController) {
+            let index = orderedViewControllers.index(of: firstViewController) {
             filterDelegate?.filterPageViewController(self,
                                                          didUpdatePageIndex: index)
         }
     }
     
     // MARK: UIPageViewControllerDelegate
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if completed {
             self.notifyTutorialDelegateOfNewIndex()
@@ -120,9 +120,9 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
     }
     
     // MARK: UIPageViewControllerDataSource
-    func pageViewController(pageViewController: UIPageViewController,
-        viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
             
@@ -142,9 +142,9 @@ class FilterPageViewController: UIPageViewController, UIPageViewControllerDelega
             return orderedViewControllers[previousIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController,
-        viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                 return nil
             }
             
@@ -175,7 +175,7 @@ protocol FilterPageViewControllerDelegate: class {
      - parameter tutorialPageViewController: the TutorialPageViewController instance
      - parameter count: the total number of pages.
      */
-    func filterPageViewController(filterPageViewController: FilterPageViewController,
+    func filterPageViewController(_ filterPageViewController: FilterPageViewController,
                                     didUpdatePageCount count: Int)
     
     /**
@@ -184,7 +184,7 @@ protocol FilterPageViewControllerDelegate: class {
      - parameter tutorialPageViewController: the TutorialPageViewController instance
      - parameter index: the index of the currently visible page.
      */
-    func filterPageViewController(filterPageViewController: FilterPageViewController,
+    func filterPageViewController(_ filterPageViewController: FilterPageViewController,
                                     didUpdatePageIndex index: Int)
     
 }

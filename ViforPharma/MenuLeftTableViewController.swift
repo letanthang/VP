@@ -18,7 +18,7 @@ class MenuLeftTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.tableView.backgroundColor = UIColor(red: 14/255, green: 34/255, blue: 74/255, alpha: 1)
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -27,76 +27,76 @@ class MenuLeftTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return menuText.count
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return (ScreenSize.SCREEN_HEIGHT - 20)/6
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let textIndentifier = "menuCell" + String(indexPath.row)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let textIndentifier = "menuCell" + String((indexPath as NSIndexPath).row)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(textIndentifier, forIndexPath: indexPath) as! CustomMenuCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: textIndentifier, for: indexPath) as! CustomMenuCell
 
-        let menuPos = NSUserDefaults.standardUserDefaults().integerForKey(MENU_POS)
+        let menuPos = UserDefaults.standard.integer(forKey: MENU_POS)
         
-        if menuPos == indexPath.row {
-            cell.iconMenu.image = UIImage(named: menuImgActive[indexPath.row])
-            cell.textMenu.text = menuText[indexPath.row]
-            cell.textMenu.textColor = UIColor.whiteColor()
+        if menuPos == (indexPath as NSIndexPath).row {
+            cell.iconMenu.image = UIImage(named: menuImgActive[(indexPath as NSIndexPath).row])
+            cell.textMenu.text = menuText[(indexPath as NSIndexPath).row]
+            cell.textMenu.textColor = UIColor.white
         } else {
-            cell.iconMenu.image = UIImage(named: menuImg[indexPath.row])
-            cell.textMenu.text = menuText[indexPath.row]
+            cell.iconMenu.image = UIImage(named: menuImg[(indexPath as NSIndexPath).row])
+            cell.textMenu.text = menuText[(indexPath as NSIndexPath).row]
         }
         
         // set width cell
         // cell.cellWidth.constant = ScreenSize.SCREEN_WIDTH/2
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
-        cell.tag = indexPath.row
+        cell.tag = (indexPath as NSIndexPath).row
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Check case select button logout
-        if menuText[indexPath.row] == "Logout" {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(MENU_POS)
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(FILTER_TA)
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(FILTER_LANG)
+        if menuText[(indexPath as NSIndexPath).row] == "Logout" {
+            UserDefaults.standard.removeObject(forKey: MENU_POS)
+            UserDefaults.standard.removeObject(forKey: FILTER_TA)
+            UserDefaults.standard.removeObject(forKey: FILTER_LANG)
             
             // Clear all file pdf temp
             clearPdfTempFile()
             
             
-            let next = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-            self.presentViewController(next, animated: false, completion: nil)
-        } else if menuText[indexPath.row] == "View Favourites" {
-            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: VIEW_FAVOURITES)
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            self.present(next, animated: false, completion: nil)
+        } else if menuText[(indexPath as NSIndexPath).row] == "View Favourites" {
+            UserDefaults.standard.set(1, forKey: VIEW_FAVOURITES)
         
-        } else if menuText[indexPath.row] == "Home" {
-            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: VIEW_FAVOURITES)
+        } else if menuText[(indexPath as NSIndexPath).row] == "Home" {
+            UserDefaults.standard.set(0, forKey: VIEW_FAVOURITES)
             
         }
 
         // Save menu postion
-        NSUserDefaults.standardUserDefaults().setInteger(indexPath.row, forKey: MENU_POS)
+        UserDefaults.standard.set((indexPath as NSIndexPath).row, forKey: MENU_POS)
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomMenuCell
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomMenuCell
         
-        selectedCell.iconMenu.image = UIImage(named: menuImgActive[indexPath.row])
-        selectedCell.textMenu.textColor = UIColor.whiteColor()
+        selectedCell.iconMenu.image = UIImage(named: menuImgActive[(indexPath as NSIndexPath).row])
+        selectedCell.textMenu.textColor = UIColor.white
         
         // Get all list cell visible
         // Unselected row before
@@ -109,14 +109,14 @@ class MenuLeftTableViewController: UITableViewController {
     }
     
     func clearPdfTempFile() -> Void {
-        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         let documentDirectoryPath:String = path[0]
-        let fileManager = NSFileManager()
+        let fileManager = FileManager()
         
         do {
-            let filePaths = try fileManager.contentsOfDirectoryAtPath(documentDirectoryPath)
+            let filePaths = try fileManager.contentsOfDirectory(atPath: documentDirectoryPath)
             for filePath in filePaths {
-                try fileManager.removeItemAtPath(documentDirectoryPath.stringByAppendingString("/" + filePath))
+                try fileManager.removeItem(atPath: documentDirectoryPath + ("/" + filePath))
             }
         } catch {
             print("Could not clear temp folder: \(error)")

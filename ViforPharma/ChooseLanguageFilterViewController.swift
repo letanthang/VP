@@ -24,15 +24,15 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
 
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: textCellIdentifier)
+        self.tableView.register(nib, forCellReuseIdentifier: textCellIdentifier)
         
         calculateCellHeight()
         
@@ -56,7 +56,7 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
     }
 
     // MARK: - Callback Function
-    func getSecondLanguageCallback(json: JSON) -> Void {
+    func getSecondLanguageCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -78,8 +78,8 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
             let listLang = json["listLanguage"].arrayValue
             
             // Get primary language user seleted
-            let userPrimaryLang: Int = NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY)
-            var userAllLang = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+            let userPrimaryLang: Int = UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY)
+            var userAllLang = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
             userAllLang.append(userPrimaryLang)
             
             for entry in listLang {
@@ -88,7 +88,7 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
                 }
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -100,70 +100,70 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
     }
     
     // Show info
     internal func showInfo () -> Void {
-        infoView.hidden = !infoView.hidden
+        infoView.isHidden = !infoView.isHidden
     }
     func hideInfo() ->Void {
-        infoView.hidden = true;
+        infoView.isHidden = true;
     }
 
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return secondaryLangItems.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heightCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier(textCellIdentifier) as! CustomTableViewCell
-        let langFilter = NSUserDefaults.standardUserDefaults().objectForKey(FILTER_LANG)  as? [Int] ?? [Int]()
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: textCellIdentifier) as! CustomTableViewCell
+        let langFilter = UserDefaults.standard.object(forKey: FILTER_LANG)  as? [Int] ?? [Int]()
         
-        if self.secondaryLangItems.count >= indexPath.row {
-            let secondLang = secondaryLangItems[indexPath.row]
+        if self.secondaryLangItems.count >= (indexPath as NSIndexPath).row {
+            let secondLang = secondaryLangItems[(indexPath as NSIndexPath).row]
             
             cell.cellText.text = secondLang.name
             cell.tag = secondLang.id
             
-            for var i = 0; i < langFilter.count; i++ {
+            for i in 0 ..< langFilter.count {
                 if langFilter[i] == cell.tag {
                     cell.cellBg.image = UIImage(named: "cell_bg_on_blue")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                     break
                 } else {
                     cell.cellBg.image = UIImage(named: "cell_bg_off")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                 }
             }
         }
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row \(indexPath.row) selected")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Row \((indexPath as NSIndexPath).row) selected")
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableViewCell
-        var langFilter = NSUserDefaults.standardUserDefaults().objectForKey(FILTER_LANG)  as? [Int] ?? [Int]()
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
+        var langFilter = UserDefaults.standard.object(forKey: FILTER_LANG)  as? [Int] ?? [Int]()
         
         if langFilter.count > 0 {
             var indexUnSelect = -1
             
-            for var i = 0; i < langFilter.count; i++ {
+            for i in 0 ..< langFilter.count {
                 if langFilter[i] == selectedCell.tag {
                     indexUnSelect = i;
                     break;
@@ -173,13 +173,13 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
             if indexUnSelect >= 0 {
                 // UnSelected this row
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_off")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
-                langFilter.removeAtIndex(indexUnSelect)
+                langFilter.remove(at: indexUnSelect)
             } else {
                 // Selected
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_on_blue")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
                 langFilter.append(selectedCell.tag)
             }
@@ -187,12 +187,12 @@ class ChooseLanguageFilterViewController: UIViewController, UITableViewDelegate,
         } else {
             // Selected
             selectedCell.cellBg.image = UIImage(named: "cell_bg_on_blue")
-            selectedCell.cellText.textColor = UIColor.whiteColor()
+            selectedCell.cellText.textColor = UIColor.white
             
             langFilter.append(selectedCell.tag)
         }
         
         // Save data
-        NSUserDefaults.standardUserDefaults().setObject(langFilter, forKey: FILTER_LANG)
+        UserDefaults.standard.set(langFilter, forKey: FILTER_LANG)
     }
 }

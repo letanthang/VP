@@ -21,25 +21,25 @@ class ReSelectContainerViewController: UIViewController, ReSelectPageViewControl
         }
     }
     
-    func reSelectPageViewController(reSelectPageViewController: ReSelectPageViewController,
+    func reSelectPageViewController(_ reSelectPageViewController: ReSelectPageViewController,
                                     didUpdatePageCount count: Int) {
         
     }
     
-    func reSelectPageViewController(reSelectPageViewController: ReSelectPageViewController,
+    func reSelectPageViewController(_ reSelectPageViewController: ReSelectPageViewController,
                                     didUpdatePageIndex index: Int) {
         currentPage = index
         
         if currentPage == 0 {
-            btnNextPre.setBackgroundImage(UIImage(named: "secondary_lang_btn"), forState: UIControlState.Normal)
+            btnNextPre.setBackgroundImage(UIImage(named: "secondary_lang_btn"), for: UIControlState())
         } else {
-            btnNextPre.setBackgroundImage(UIImage(named: "back_to_primary"), forState: UIControlState.Normal)
+            btnNextPre.setBackgroundImage(UIImage(named: "back_to_primary"), for: UIControlState())
         }
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let reSelectPageViewController = segue.destinationViewController as? ReSelectPageViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let reSelectPageViewController = segue.destination as? ReSelectPageViewController {
             self.reSelectPageViewController = reSelectPageViewController
         }
     }
@@ -51,16 +51,16 @@ class ReSelectContainerViewController: UIViewController, ReSelectPageViewControl
             
             self.revealViewController().rearViewRevealWidth = 150
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
         
-        let navigationTitlelabel = UILabel(frame: CGRectMake(0, 0, 200, 21))
-        navigationTitlelabel.center = CGPointMake(160, 284)
-        navigationTitlelabel.textAlignment = NSTextAlignment.Left
-        navigationTitlelabel.textColor  = UIColor.whiteColor()
+        let navigationTitlelabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        navigationTitlelabel.center = CGPoint(x: 160, y: 284)
+        navigationTitlelabel.textAlignment = NSTextAlignment.left
+        navigationTitlelabel.textColor  = UIColor.white
         navigationTitlelabel.adjustsFontSizeToFitWidth = true
         navigationTitlelabel.text = "SUBSCRIBED LANGUAGES"
         navigationTitlelabel.font = UIFont(name: "HelveticaNeue-Medium",  size: 14)
@@ -74,7 +74,7 @@ class ReSelectContainerViewController: UIViewController, ReSelectPageViewControl
     }
     
     
-    @IBAction func didTapSave(sender: UIButton) {
+    @IBAction func didTapSave(_ sender: UIButton) {
         // Show or hide view info
         if let visibleVC = reSelectPageViewController!.viewControllers?.first as? ReSelectPrimaryViewController {
             visibleVC.savePrimaryLangToServer()
@@ -85,7 +85,7 @@ class ReSelectContainerViewController: UIViewController, ReSelectPageViewControl
         }
     }
 
-    @IBAction func didTapNextOrPrePage(sender: UIButton) {
+    @IBAction func didTapNextOrPrePage(_ sender: UIButton) {
         if currentPage == 0 {
             reSelectPageViewController?.scrollToViewController(index: 1)
         } else {

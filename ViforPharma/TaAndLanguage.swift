@@ -23,14 +23,14 @@ class TaAndLanguageObj: NSObject, NSCoding {
     }
     
     required convenience init(coder aDecoder: NSCoder) {
-        let id = aDecoder.decodeIntegerForKey("id")
-        let name = aDecoder.decodeObjectForKey("name") as! String
+        let id = aDecoder.decodeInteger(forKey: "id")
+        let name = aDecoder.decodeObject(forKey: "name") as! String
         
         self.init(id: id, name: name)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInteger(id, forKey: "id")
-        aCoder.encodeObject(name, forKey: "name")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: "id")
+        aCoder.encode(name, forKey: "name")
     }
 }

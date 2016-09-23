@@ -25,15 +25,15 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
 
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: textCellIdentifier)
+        self.tableView.register(nib, forCellReuseIdentifier: textCellIdentifier)
         
         calculateCellHeight()
         
@@ -50,7 +50,7 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     // MARK: - Get API Data Function
-    private func getTa() {
+    fileprivate func getTa() {
         // Get ta from server
         let body: String = ""
         
@@ -62,7 +62,7 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // Callback Function
-    func getTaCallback(json: JSON) -> Void {
+    func getTaCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -82,7 +82,7 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
         if code == 1 {
             // get data success
             let listTa = json["listTA"].arrayValue
-            let userTaList = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+            let userTaList = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
             
             for entry in listTa {
                 
@@ -92,7 +92,7 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
                 
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -104,73 +104,73 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
         
     }
     
     // Show info
     internal func showInfo () -> Void {
-        infoView.hidden = !infoView.hidden
+        infoView.isHidden = !infoView.isHidden
     }
     
     func hideInfo() ->Void {
-        infoView.hidden = true;
+        infoView.isHidden = true;
     }
     
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taItems.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heightCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier(textCellIdentifier) as! CustomTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: textCellIdentifier) as! CustomTableViewCell
         
-        let taFilter = NSUserDefaults.standardUserDefaults().objectForKey(FILTER_TA) as? [Int] ?? [Int]()
+        let taFilter = UserDefaults.standard.object(forKey: FILTER_TA) as? [Int] ?? [Int]()
         
-        if self.taItems.count >= indexPath.row {
-            let ta = taItems[indexPath.row]
+        if self.taItems.count >= (indexPath as NSIndexPath).row {
+            let ta = taItems[(indexPath as NSIndexPath).row]
             
             cell.cellText.text = ta.name
             cell.tag = ta.id
             
-            for var i = 0; i < taFilter.count; i++ {
+            for i in 0 ..< taFilter.count {
                 if taFilter[i] == cell.tag {
                     cell.cellBg.image = UIImage(named: "cell_bg_on_blue")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                     break
                 } else {
                     cell.cellBg.image = UIImage(named: "cell_bg_off")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                 }
             }
         }
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row \(indexPath.row) selected")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Row \((indexPath as NSIndexPath).row) selected")
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableViewCell
-        var taFilter = NSUserDefaults.standardUserDefaults().objectForKey(FILTER_TA) as? [Int] ?? [Int]()
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
+        var taFilter = UserDefaults.standard.object(forKey: FILTER_TA) as? [Int] ?? [Int]()
         
         if taFilter.count > 0 {
             var indexUnSelect = -1
             
-            for var i = 0; i < taFilter.count; i++ {
+            for i in 0 ..< taFilter.count {
                 if taFilter[i] == selectedCell.tag {
                     indexUnSelect = i;
                     break;
@@ -180,13 +180,13 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
             if indexUnSelect >= 0 {
                 // UnSelected this row
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_off")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
-                taFilter.removeAtIndex(indexUnSelect)
+                taFilter.remove(at: indexUnSelect)
             } else {
                 // Selected
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_on_blue")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
                 taFilter.append(selectedCell.tag)
             }
@@ -194,12 +194,12 @@ class ChooseTaFilterViewController: UIViewController, UITableViewDelegate, UITab
         } else {
             // Selected
             selectedCell.cellBg.image = UIImage(named: "cell_bg_on_blue")
-            selectedCell.cellText.textColor = UIColor.whiteColor()
+            selectedCell.cellText.textColor = UIColor.white
             
             taFilter.append(selectedCell.tag)
         }
         
         // Save data
-        NSUserDefaults.standardUserDefaults().setObject(taFilter, forKey: FILTER_TA)
+        UserDefaults.standard.set(taFilter, forKey: FILTER_TA)
     }
 }

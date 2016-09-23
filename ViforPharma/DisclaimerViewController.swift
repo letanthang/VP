@@ -22,7 +22,7 @@ class DisclaimerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
 //        self.textView.numberOfLines = 0
 //        self.textView.sizeToFit()

@@ -29,24 +29,24 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
             
             self.revealViewController().rearViewRevealWidth = 150
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
         
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: textCellIdentifier)
+        self.tableView.register(nib, forCellReuseIdentifier: textCellIdentifier)
     }
     
-    @IBAction func didTapSave(sender: AnyObject) {
+    @IBAction func didTapSave(_ sender: AnyObject) {
         // Show loading
         showLoading()
         // Save TA to server
@@ -54,11 +54,11 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         calculateCellHeight()
         
         // Copy secondary language to temp
-        taTemp = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+        taTemp = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
         
         // Clear all item in ta list
         taItems.removeAll()
@@ -76,7 +76,7 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // MARK: - Get API Data Function
-    private func getTa() {
+    fileprivate func getTa() {
         // Get ta from server
         let body: String = ""
         
@@ -88,7 +88,7 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // Callback Function
-    func getTaCallback(json: JSON) -> Void {
+    func getTaCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -113,7 +113,7 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.taItems.append(TaAndLanguageObj(json: entry))
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -125,17 +125,17 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
         
     }
     
     // Save TA to server
-    private func saveTaToServer() {
+    fileprivate func saveTaToServer() {
         if taTemp.count > 0 {
             var taIdStr = ""
             
-            for var i = 0; i < taTemp.count; i++ {
+            for i in 0 ..< taTemp.count {
                 if !taIdStr.isEmpty {
                     taIdStr += ","
                 }
@@ -143,7 +143,7 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             // Get user id
-            let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+            let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
             
             let body: String = "userId=" + String(userId) + "&subscribeTAId=" + taIdStr
             
@@ -152,7 +152,7 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
                 
                 if code == 1 {
                     // Save data
-                    NSUserDefaults.standardUserDefaults().setObject(self.taTemp, forKey: USER_TA_KEY)
+                    UserDefaults.standard.set(self.taTemp, forKey: USER_TA_KEY)
                     
                     // hide loading
                     self.hideLoading()
@@ -171,7 +171,7 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.hideLoading()
                     
                     // login fail --> show error message
-                    self.showErrorMessage("Iron World", message: String(json["message"]))
+                    self.showErrorMessage("Iron World", message: String(describing: json["message"]))
                 }
             })
         } else {
@@ -183,56 +183,56 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taItems.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return heightCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier(textCellIdentifier) as! CustomTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: textCellIdentifier) as! CustomTableViewCell
         
-        if self.taItems.count >= indexPath.row {
-            let ta = taItems[indexPath.row]
+        if self.taItems.count >= (indexPath as NSIndexPath).row {
+            let ta = taItems[(indexPath as NSIndexPath).row]
             
             cell.cellText.text = ta.name
             cell.tag = ta.id
             
-            for var i = 0; i < taTemp.count; i++ {
+            for i in 0 ..< taTemp.count {
                 if taTemp[i] == cell.tag {
                     cell.cellBg.image = UIImage(named: "cell_bg_on")
                     cell.cellText.textColor = UIColor(red: 44/255, green: 73/255, blue: 130/255, alpha: 1)
                     break
                 } else {
                     cell.cellBg.image = UIImage(named: "cell_bg_off")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                 }
             }
         }
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row \(indexPath.row) selected")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Row \((indexPath as NSIndexPath).row) selected")
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableViewCell
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
 
         if taTemp.count > 0 {
             var indexUnSelect = -1
             
-            for var i = 0; i < taTemp.count; i++ {
+            for i in 0 ..< taTemp.count {
                 if taTemp[i] == selectedCell.tag {
                     indexUnSelect = i;
                     break;
@@ -242,9 +242,9 @@ class ReSelectTAViewController: UIViewController, UITableViewDelegate, UITableVi
             if indexUnSelect >= 0 {
                 // UnSelected this row
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_off")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
-                taTemp.removeAtIndex(indexUnSelect)
+                taTemp.remove(at: indexUnSelect)
             } else {
                 // Selected
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_on")

@@ -23,17 +23,17 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
         super.viewDidLoad()
         
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: textCellIdentifier)
+        self.tableView.register(nib, forCellReuseIdentifier: textCellIdentifier)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         calculateCellHeight()
         
         // Clear all item in list
@@ -48,24 +48,24 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
             self.getSecondLanguageCallback(json)
         })
     }
-    @IBAction func didTapRegister(sender: AnyObject) {
+    @IBAction func didTapRegister(_ sender: AnyObject) {
         // Show loading
         showLoading()
         // Save data to server
         saveSecondaryLangToServer()
     }
     
-    @IBAction func didTapSkip(sender: AnyObject) {
+    @IBAction func didTapSkip(_ sender: AnyObject) {
         // Init menu postion
-        NSUserDefaults.standardUserDefaults().setInteger(0, forKey: MENU_POS)
+        UserDefaults.standard.set(0, forKey: MENU_POS)
         
         // Go to article list
-        let next = self.storyboard?.instantiateViewControllerWithIdentifier("SWRevealViewController") as! SWRevealViewController
-        self.presentViewController(next, animated: true, completion: nil)
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+        self.present(next, animated: true, completion: nil)
     }
     
     // MARK: - Callback Function
-    func getSecondLanguageCallback(json: JSON) -> Void {
+    func getSecondLanguageCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -87,7 +87,7 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
             let listLang = json["listLanguage"].arrayValue
             
             // Get primary language user seleted
-            let userPrimaryLang: Int = NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY)
+            let userPrimaryLang: Int = UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY)
             
             for entry in listLang {
                 if userPrimaryLang != entry["id"].intValue {
@@ -95,7 +95,7 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
                 }
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -107,19 +107,19 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
         
     }
     
     // Call api save secondary language to server
-    private func saveSecondaryLangToServer() {
-        let userSecondaryLagnArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+    fileprivate func saveSecondaryLangToServer() {
+        let userSecondaryLagnArr: Array = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
         
         if userSecondaryLagnArr.count > 0 {
             var langIdStr = ""
             
-            for var i = 0; i < userSecondaryLagnArr.count; i++ {
+            for i in 0 ..< userSecondaryLagnArr.count {
                 if !langIdStr.isEmpty {
                     langIdStr += ","
                 }
@@ -128,7 +128,7 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
             
             
             // Get user id
-            let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+            let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
             
             let body: String = "userId=" + String(userId) + "&secondaryLangId=" + langIdStr
             
@@ -137,15 +137,15 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
             })
         } else {
             // Init menu postion
-            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: MENU_POS)
-            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: VIEW_FAVOURITES)
+            UserDefaults.standard.set(0, forKey: MENU_POS)
+            UserDefaults.standard.set(0, forKey: VIEW_FAVOURITES)
             
-            let next = self.storyboard?.instantiateViewControllerWithIdentifier("SWRevealViewController") as! SWRevealViewController
-            self.presentViewController(next, animated: true, completion: nil)
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+            self.present(next, animated: true, completion: nil)
         }
     }
     
-    func saveSecondaryLangCallback(json: JSON) -> Void {
+    func saveSecondaryLangCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -164,13 +164,13 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
         
         if code == 1 {
             // Init menu postion
-            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: MENU_POS)
-            NSUserDefaults.standardUserDefaults().setInteger(0, forKey: VIEW_FAVOURITES)
+            UserDefaults.standard.set(0, forKey: MENU_POS)
+            UserDefaults.standard.set(0, forKey: VIEW_FAVOURITES)
             
             // Save success and go to article list
-            dispatch_async(dispatch_get_main_queue()) {
-                let next = self.storyboard?.instantiateViewControllerWithIdentifier("SWRevealViewController") as! SWRevealViewController
-                self.presentViewController(next, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                let next = self.storyboard?.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+                self.present(next, animated: true, completion: nil)
             }
             
         } else if code == 99 {
@@ -197,57 +197,57 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
     }
     
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return secondaryLangItems.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heightCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier(textCellIdentifier) as! CustomTableViewCell
-        let userSecondaryLagnArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: textCellIdentifier) as! CustomTableViewCell
+        let userSecondaryLagnArr: Array = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
         
-        if self.secondaryLangItems.count >= indexPath.row {
-            let secondLang = secondaryLangItems[indexPath.row]
+        if self.secondaryLangItems.count >= (indexPath as NSIndexPath).row {
+            let secondLang = secondaryLangItems[(indexPath as NSIndexPath).row]
             
             cell.cellText.text = secondLang.name
             cell.tag = secondLang.id
             
-            for var i = 0; i < userSecondaryLagnArr.count; i++ {
+            for i in 0 ..< userSecondaryLagnArr.count {
                 if userSecondaryLagnArr[i] == cell.tag {
                     cell.cellBg.image = UIImage(named: "cell_bg_on")
                     cell.cellText.textColor = UIColor(red: 44/255, green: 73/255, blue: 130/255, alpha: 1)
                     break
                 } else {
                     cell.cellBg.image = UIImage(named: "cell_bg_off")
-                    cell.cellText.textColor = UIColor.whiteColor()
+                    cell.cellText.textColor = UIColor.white
                 }
             }
         }
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("Row \(indexPath.row) selected")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Row \((indexPath as NSIndexPath).row) selected")
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableViewCell
-        var userSecondaryLagnArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
+        var userSecondaryLagnArr: Array = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
         
         if userSecondaryLagnArr.count > 0 {
             var indexUnSelect = -1
             
-            for var i = 0; i < userSecondaryLagnArr.count; i++ {
+            for i in 0 ..< userSecondaryLagnArr.count {
                 if userSecondaryLagnArr[i] == selectedCell.tag {
                     indexUnSelect = i;
                     break;
@@ -257,9 +257,9 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
             if indexUnSelect >= 0 {
                 // UnSelected this row
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_off")
-                selectedCell.cellText.textColor = UIColor.whiteColor()
+                selectedCell.cellText.textColor = UIColor.white
                 
-                userSecondaryLagnArr.removeAtIndex(indexUnSelect)
+                userSecondaryLagnArr.remove(at: indexUnSelect)
             } else {
                 // Selected
                 selectedCell.cellBg.image = UIImage(named: "cell_bg_on")
@@ -277,7 +277,7 @@ class SelectSecondaryLangViewController: UIViewController, UITableViewDelegate, 
         }
         
         // Save data
-        NSUserDefaults.standardUserDefaults().setObject( userSecondaryLagnArr, forKey: USER_SECONDARY_LANGUAGE_KEY)
+        UserDefaults.standard.set( userSecondaryLagnArr, forKey: USER_SECONDARY_LANGUAGE_KEY)
         
     }
 }

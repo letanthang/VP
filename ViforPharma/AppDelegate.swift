@@ -14,39 +14,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.shared.statusBarStyle = .lightContent
         
         //Image Background Navigation Bar
         let navBackgroundImage:UIImage! = UIImage(named: "nav_bg.png")
-        UINavigationBar.appearance().setBackgroundImage(navBackgroundImage, forBarMetrics: .Default)
+        UINavigationBar.appearance().setBackgroundImage(navBackgroundImage, for: .default)
         
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
@@ -65,55 +65,55 @@ extension UIViewController {
     }
     
     // #MARK: Show error message
-    func showErrorMessageUserNotExist(title: String, message: String) {
+    func showErrorMessageUserNotExist(_ title: String, message: String) {
         // create the alert
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { action in
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
             // Move to login screen
             self.logout()
         }))
         
         // show the alert
-        dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     func logout() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(MENU_POS)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(FILTER_TA)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(FILTER_LANG)
+        UserDefaults.standard.removeObject(forKey: MENU_POS)
+        UserDefaults.standard.removeObject(forKey: FILTER_TA)
+        UserDefaults.standard.removeObject(forKey: FILTER_LANG)
         
         
-        let next = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.presentViewController(next, animated: false, completion: nil)
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.present(next, animated: false, completion: nil)
     }
     
-    func showErrorMessage(title: String, message: String) {
+    func showErrorMessage(_ title: String, message: String) {
         // create the alert
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         
         // show the alert
-        dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     
     // #MARK: Loading
     func showLoading(){
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             LoadingOverlay.shared.showOverlay(self.view)
         }
     }
     
     func hideLoading(){
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             LoadingOverlay.shared.hideOverlayView()
         }
     }
@@ -121,7 +121,7 @@ extension UIViewController {
 
 extension UIImageView
 {
-    func roundCornersForAspectFit(radius: CGFloat)
+    func roundCornersForAspectFit(_ radius: CGFloat)
     {
         if let image = self.image {
             
@@ -140,7 +140,7 @@ extension UIImageView
             }
             let path = UIBezierPath(roundedRect: drawingRect, cornerRadius: radius)
             let mask = CAShapeLayer()
-            mask.path = path.CGPath
+            mask.path = path.cgPath
             self.layer.mask = mask
         }
     }

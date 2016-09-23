@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import PDFReader
 
-class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegate {
+class ArticleDetailViewController: UIViewController, URLSessionDownloadDelegate {
 
     
     @IBOutlet weak var bgView: UIView!
@@ -25,16 +25,16 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
  
     var articleObj: ArticleObj?
     
-    var downloadTask: NSURLSessionDownloadTask!
-    var backgroundSession: NSURLSession!
+    var downloadTask: URLSessionDownloadTask!
+    var backgroundSession: Foundation.URLSession!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         bgView.layer.cornerRadius = 8
         
         // show loading
@@ -47,9 +47,9 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
 
     func getArticleDetai() {
         // Get id
-        let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
-        let articleId = NSUserDefaults.standardUserDefaults().integerForKey(ARTICLE_ID)
-        let articleLangId = NSUserDefaults.standardUserDefaults().integerForKey(ARTICLE_LANG_ID)
+        let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
+        let articleId = UserDefaults.standard.integer(forKey: ARTICLE_ID)
+        let articleLangId = UserDefaults.standard.integer(forKey: ARTICLE_LANG_ID)
         
         // Get article from server
         let body: String = "userId=" + String(userId) + "&articleId=" + String(articleId) + "&articleLangId=" + String(articleLangId)
@@ -59,7 +59,7 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
         })
     }
     
-    func getArticleCallback(json: JSON) -> Void {
+    func getArticleCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -84,7 +84,7 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
             
             let favouriteFlg = article["is_favourite"].intValue
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 // Update view
                 self.navigationItem.title = self.articleObj?.name
                 
@@ -93,7 +93,7 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
                 let font = self.content.font
                 
                 let style = NSMutableParagraphStyle()
-                style.lineBreakMode = NSLineBreakMode.ByWordWrapping
+                style.lineBreakMode = NSLineBreakMode.byWordWrapping
                 let size = self.articleObj?.articleContent.sizeForWidth(self.content.frame.size.width, font: font!)
                 
                 var numberLine = (size?.height)! / (font?.lineHeight)!
@@ -127,22 +127,22 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
                 // self.bgConstraintBot.constant = 290
                 
                 // Set image from url
-                let url = NSURL(string: self.articleObj!.banner)
-                let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+                let url = URL(string: self.articleObj!.banner)
+                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
                 self.banner.image = UIImage(data: data!)
                 
-                let maskPath = UIBezierPath(roundedRect: self.banner.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: CGSizeMake(8, 8))
+                let maskPath = UIBezierPath(roundedRect: self.banner.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 8, height: 8))
                 let maskLayer = CAShapeLayer()
                 maskLayer.frame = self.banner.bounds
-                maskLayer.path  = maskPath.CGPath
+                maskLayer.path  = maskPath.cgPath
                 self.banner.layer.mask = maskLayer
                 
                 if favouriteFlg == 1 {
                     self.favouriteBtn.tag = 1;
-                    self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_on"), forState: UIControlState.Normal)
+                    self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_on"), for: UIControlState())
                 } else {
                     self.favouriteBtn.tag = 0;
-                    self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_off"), forState: UIControlState.Normal)
+                    self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_off"), for: UIControlState())
                 }
             }
             
@@ -160,22 +160,22 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
     }
     
-    @IBAction func didTapFavourite(sender: UIButton) {
+    @IBAction func didTapFavourite(_ sender: UIButton) {
         if self.favouriteBtn.tag == 1 {
             // Remove favourite
             self.favouriteBtn.tag = 0
-            self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_off"), forState: UIControlState.Normal)
+            self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_off"), for: UIControlState())
             
             // call api remove favourite
             removeFavourite()
         } else {
             // Add favourite
             self.favouriteBtn.tag = 1
-            self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_on"), forState: UIControlState.Normal)
+            self.favouriteBtn.setBackgroundImage(UIImage(named: "favourite_on"), for: UIControlState())
             
             // Call api add favourite
             setFavourite()
@@ -186,7 +186,7 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
         showLoading()
         
         // Get id
-        let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+        let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
         
         // Get article from server
         let body: String = "userId=" + String(userId) + "&articleId=" + String(articleObj!.id)
@@ -214,7 +214,7 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
         showLoading()
         
         // Get id
-        let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+        let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
         
         // Get article from server
         let body: String = "userId=" + String(userId) + "&articleId=" + String(articleObj!.id)
@@ -237,29 +237,29 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
         })
     }
     
-    @IBAction func didTapViewMore(sender: UIButton) {
+    @IBAction func didTapViewMore(_ sender: UIButton) {
         // Open browser or PDF
         if articleObj!.type == URL_TYPE {
             // Open browser
-            if let checkURL = NSURL(string: articleObj!.link) {
-                UIApplication.sharedApplication().openURL(checkURL)
+            if let checkURL = URL(string: articleObj!.link) {
+                UIApplication.shared.openURL(checkURL)
             }
             
         } else {
             
-            let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("backgroundSession" + String(articleObj!.id))
-            backgroundSession = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+            let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSession" + String(articleObj!.id))
+            backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
             
             // Open pdf
             pdfFileName = "/" + ((articleObj?.link)! as NSString).lastPathComponent
             
-            let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
             let documentDirectoryPath:String = path[0]
-            let fileManager = NSFileManager()
-            let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/" + ((articleObj?.link)! as NSString).lastPathComponent))
+            let fileManager = FileManager()
+            let destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath + ("/" + ((articleObj?.link)! as NSString).lastPathComponent))
             print("1 \(destinationURLForFile)")
-            if fileManager.fileExistsAtPath(destinationURLForFile.path!){
-                showFileWithPath(destinationURLForFile.path!)
+            if fileManager.fileExists(atPath: destinationURLForFile.path){
+                showFileWithPath(destinationURLForFile.path)
             } else {
                 showLoading()
                 startDownload((articleObj?.link)!)
@@ -267,44 +267,44 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
         }
     }
     
-    func startDownload(path: String) -> Void {
-        let url = NSURL(string: path)!
-        downloadTask = backgroundSession.downloadTaskWithURL(url)
+    func startDownload(_ path: String) -> Void {
+        let url = URL(string: path)!
+        downloadTask = backgroundSession.downloadTask(with: url)
         downloadTask.resume()
     }
     
     // 1
-    func URLSession(session: NSURLSession,
-                    downloadTask: NSURLSessionDownloadTask,
-                    didFinishDownloadingToURL location: NSURL){
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL){
         
-        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         let documentDirectoryPath:String = path[0]
-        let fileManager = NSFileManager()
-        let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/" + ((articleObj?.link)! as NSString).lastPathComponent))
+        let fileManager = FileManager()
+        let destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath + ("/" + ((articleObj?.link)! as NSString).lastPathComponent))
         
         print("2 \(destinationURLForFile)")
         
-        if fileManager.fileExistsAtPath(destinationURLForFile.path!){
+        if fileManager.fileExists(atPath: destinationURLForFile.path){
             
             print("not move file")
-            showFileWithPath(destinationURLForFile.path!)
+            showFileWithPath(destinationURLForFile.path)
             
         }
         else{
             do {
                 print("move file")
-                try fileManager.moveItemAtURL(location, toURL: destinationURLForFile)
+                try fileManager.moveItem(at: location, to: destinationURLForFile)
                 // show file
-                showFileWithPath(destinationURLForFile.path!)
+                showFileWithPath(destinationURLForFile.path)
             }catch{
                 print("An error occurred while moving file to destination url")
             }
         }
     }
     // 2
-    func URLSession(session: NSURLSession,
-                    downloadTask: NSURLSessionDownloadTask,
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
                     didWriteData bytesWritten: Int64,
                                  totalBytesWritten: Int64,
                                  totalBytesExpectedToWrite: Int64){
@@ -312,9 +312,9 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
     }
     
     // Download error
-    func URLSession(session: NSURLSession,
-                    task: NSURLSessionTask,
-                    didCompleteWithError error: NSError?){
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?){
         downloadTask = nil
         
         if (error != nil) {
@@ -326,18 +326,18 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
         self.backgroundSession.invalidateAndCancel()
     }
     
-    func showFileWithPath(path: String){
+    func showFileWithPath(_ path: String){
 
-        let isFileFound:Bool? = NSFileManager.defaultManager().fileExistsAtPath(path)
+        let isFileFound:Bool? = FileManager.default.fileExists(atPath: path)
         if isFileFound == true{
             
             print("is file found")
             
             //let documentURL = NSBundle.mainBundle().URLForResource("Cupcakes", withExtension: "pdf")!
-            let documentURL = NSURL(fileURLWithPath: path)
+            let documentURL = URL(fileURLWithPath: path)
             let document = PDFDocument(fileURL: documentURL)
             
-            let storyboard = UIStoryboard(name: "PDFReader", bundle: NSBundle(forClass: PDFViewController.self))
+            let storyboard = UIStoryboard(name: "PDFReader", bundle: Bundle(for: PDFViewController.self))
             let controller = storyboard.instantiateInitialViewController() as! PDFViewController
             controller.document = document
             controller.title = "PDF View"
@@ -351,9 +351,9 @@ class ArticleDetailViewController: UIViewController, NSURLSessionDownloadDelegat
 }
 
 extension String {
-    func sizeForWidth(width: CGFloat, font: UIFont) -> CGSize {
+    func sizeForWidth(_ width: CGFloat, font: UIFont) -> CGSize {
         let attr = [NSFontAttributeName: font]
-        let height = NSString(string: self).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options:.UsesLineFragmentOrigin, attributes: attr, context: nil).height
+        let height = NSString(string: self).boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options:.usesLineFragmentOrigin, attributes: attr, context: nil).height
         return CGSize(width: width, height: ceil(height))
     }
 }

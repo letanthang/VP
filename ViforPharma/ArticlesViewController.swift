@@ -26,29 +26,29 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         if self.revealViewController() != nil {
             self.revealViewController().rearViewRevealWidth = 150 //ScreenSize.SCREEN_WIDTH/2
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
             
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         }
         
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         
         let nib = UINib(nibName: "ArticleTopCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "topCell")
+        self.tableView.register(nib, forCellReuseIdentifier: "topCell")
         
         let nib1 = UINib(nibName: "ArticleNormalCell", bundle: nil)
-        self.tableView.registerNib(nib1, forCellReuseIdentifier: "reuseCell")
+        self.tableView.register(nib1, forCellReuseIdentifier: "reuseCell")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if DeviceType.IS_IPHONE_6 {
             heightTopCell = 285
             heightNormalCell = 105
@@ -61,7 +61,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         articleList.removeAll()
         
         // check load article favourite
-        if NSUserDefaults.standardUserDefaults().integerForKey(VIEW_FAVOURITES) == 1 {
+        if UserDefaults.standard.integer(forKey: VIEW_FAVOURITES) == 1 {
             // Get favourite list
             getFavouriteList()
         } else {
@@ -76,19 +76,19 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Check have filter or not
         // Get filter data
-        var filterTa = NSUserDefaults.standardUserDefaults().objectForKey(FILTER_TA) as? [Int] ?? [Int]()
-        var filterLang = NSUserDefaults.standardUserDefaults().objectForKey(FILTER_LANG) as? [Int] ?? [Int]()
+        var filterTa = UserDefaults.standard.object(forKey: FILTER_TA) as? [Int] ?? [Int]()
+        var filterLang = UserDefaults.standard.object(forKey: FILTER_LANG) as? [Int] ?? [Int]()
         
         if filterTa.count == 0 {
             // Get user ta
-            filterTa = NSUserDefaults.standardUserDefaults().objectForKey(USER_TA_KEY) as? [Int] ?? [Int]()
+            filterTa = UserDefaults.standard.object(forKey: USER_TA_KEY) as? [Int] ?? [Int]()
         }
         
         if filterLang.count == 0 {
             // Get user primary and secondary language
-            filterLang = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+            filterLang = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
             
-            filterLang.append(NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY))
+            filterLang.append(UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY))
         }
         
         var taStr: String = ""
@@ -117,7 +117,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func getArticleCallback (json: JSON) -> Void {
+    func getArticleCallback (_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -142,7 +142,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
                 self.articleList.append(ArticleObj(json: entry))
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -154,13 +154,13 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
     }
     
     // get favourite article
-    private func getFavouriteList() {
-        let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+    fileprivate func getFavouriteList() {
+        let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
         
         // Get article from server
         let body: String = "userId=" + String(userId)
@@ -173,7 +173,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // Callback Function
-    func getFavouriteCallback(json: JSON) -> Void {
+    func getFavouriteCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -198,7 +198,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
                 self.articleList.append(ArticleObj(json: entry))
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -216,80 +216,80 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
         
     }
     
     
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.articleList.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).row == 0 {
             return heightTopCell
         }
         
         return heightNormalCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("topCell") as! ArticleTopCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).row == 0 {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "topCell") as! ArticleTopCell
             
-            cell.name.text = self.articleList[indexPath.row].name
-            cell.content.text = self.articleList[indexPath.row].articleContent
+            cell.name.text = self.articleList[(indexPath as NSIndexPath).row].name
+            cell.content.text = self.articleList[(indexPath as NSIndexPath).row].articleContent
             
             // Set image from url
-            let url = NSURL(string: self.articleList[indexPath.row].banner)
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            let url = URL(string: self.articleList[(indexPath as NSIndexPath).row].banner)
+            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
             cell.banner.image = UIImage(data: data!)
 
             
-            cell.backgroundColor = UIColor.clearColor()
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            cell.backgroundColor = UIColor.clear
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             
             return cell
         } else {
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("reuseCell") as! ArticleNormalCell
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "reuseCell") as! ArticleNormalCell
             
-            cell.name.text = self.articleList[indexPath.row].name
-            cell.content.text = self.articleList[indexPath.row].articleContent
+            cell.name.text = self.articleList[(indexPath as NSIndexPath).row].name
+            cell.content.text = self.articleList[(indexPath as NSIndexPath).row].articleContent
             
             // Set image from url
-            let url = NSURL(string: self.articleList[indexPath.row].banner)
-            let data = NSData(contentsOfURL: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
+            let url = URL(string: self.articleList[(indexPath as NSIndexPath).row].banner)
+            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check
             
-            cell.banner.image = self.resizeImage(UIImage(data: data!)!, targetSize: CGSizeMake(294.0, 132.5))
+            cell.banner.image = self.resizeImage(UIImage(data: data!)!, targetSize: CGSize(width: 294.0, height: 132.5))
             
             //cell.banner.image = UIImage(data: data!)
             
-            cell.backgroundColor = UIColor.clearColor()
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            cell.backgroundColor = UIColor.clear
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             
             return cell
         }
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Save id
-        NSUserDefaults.standardUserDefaults().setInteger(articleList[indexPath.row].id, forKey: ARTICLE_ID)
-        NSUserDefaults.standardUserDefaults().setInteger(articleList[indexPath.row].articleLangId, forKey: ARTICLE_LANG_ID)
+        UserDefaults.standard.set(articleList[(indexPath as NSIndexPath).row].id, forKey: ARTICLE_ID)
+        UserDefaults.standard.set(articleList[(indexPath as NSIndexPath).row].articleLangId, forKey: ARTICLE_LANG_ID)
         
-        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("ArticleDetailViewController") as? ArticleDetailViewController
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController
         self.navigationController?.pushViewController(detailVC!, animated: true)
         
         
     }
     
-    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    func resizeImage(_ image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width
@@ -298,20 +298,20 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         // Figure out what our orientation is, and use that to form the rectangle
         var newSize: CGSize
         if(widthRatio > heightRatio) {
-            newSize = CGSizeMake(size.width * heightRatio, size.height * heightRatio)
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
         } else {
-            newSize = CGSizeMake(size.width * widthRatio,  size.height * widthRatio)
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
         
         // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
         
         // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.drawInRect(rect)
+        image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return newImage
+        return newImage!
     }
 }

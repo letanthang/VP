@@ -17,7 +17,7 @@ class RestApiManager: NSObject {
     
     let baseURL = "http://54.254.163.18/viforpharma/index.php/api/"
     
-    func callApi(path: String, body: String, onCompletion: (JSON) -> Void) {
+    func callApi(_ path: String, body: String, onCompletion: @escaping (JSON) -> Void) {
         let route = baseURL + path
         makeHTTPPostRequest(route, body: body, onCompletion: { json, err in
             onCompletion(json as JSON)
@@ -25,12 +25,12 @@ class RestApiManager: NSObject {
     }
     
     // MARK: Perform a GET Request
-    private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
-        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+    fileprivate func makeHTTPGetRequest(_ path: String, onCompletion: @escaping ServiceResponse) {
+        let request = NSMutableURLRequest(url: URL(string: path)!)
         
-        let session = NSURLSession.sharedSession()
+        let session = URLSession.shared
         
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+        let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
             if let jsonData = data {
                 let json:JSON = JSON(data: jsonData)
                 onCompletion(json, error)
@@ -43,20 +43,20 @@ class RestApiManager: NSObject {
     
     
     // MARK: Perform a POST Request
-    private func makeHTTPPostRequest(path: String, body: String, onCompletion: ServiceResponse) {
-        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+    fileprivate func makeHTTPPostRequest(_ path: String, body: String, onCompletion: @escaping ServiceResponse) {
+        let request = NSMutableURLRequest(url: URL(string: path)!)
         
         // Set the method to POST
-        request.HTTPMethod = "POST"
+        request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         do {
             // Set the POST body for the request
-            let postData: NSData = body.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: true)!
-            request.HTTPBody = postData
-            let session = NSURLSession.sharedSession()
+            let postData: Data = body.data(using: String.Encoding.ascii, allowLossyConversion: true)!
+            request.httpBody = postData
+            let session = URLSession.shared
             
-            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
                 if let jsonData = data {
                     let json:JSON = JSON(data: jsonData)
                     onCompletion(json, nil)

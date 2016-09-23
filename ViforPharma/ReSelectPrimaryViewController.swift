@@ -26,21 +26,21 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
 
         // Table view config
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: textCellIdentifier)
+        self.tableView.register(nib, forCellReuseIdentifier: textCellIdentifier)
         
         // Calculate Cell Height
         calculateCellHeight()
         
         // Copy list primary language id to array temp
-        primaryLangTemp = NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY)
+        primaryLangTemp = UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY)
         
         // Get ta from server
         let body: String = ""
@@ -52,23 +52,23 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
         })
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if isFirstTime {
             isFirstTime = false
         } else {
             // Copy list primary language id to array temp
-            primaryLangTemp = NSUserDefaults.standardUserDefaults().integerForKey(USER_PRIMARY_LANGUAGE_KEY)
+            primaryLangTemp = UserDefaults.standard.integer(forKey: USER_PRIMARY_LANGUAGE_KEY)
             
             // Clear all item in list
             primaryLangItems.removeAll()
             
             // Get list language for primary except language chose in secondary language screen
             // Get languages store
-            let decoded  = NSUserDefaults.standardUserDefaults().objectForKey(LANGUAGES_SAVE) as! NSData
-            let languageList = NSKeyedUnarchiver.unarchiveObjectWithData(decoded) as! [TaAndLanguageObj]
+            let decoded  = UserDefaults.standard.object(forKey: LANGUAGES_SAVE) as! Data
+            let languageList = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [TaAndLanguageObj]
             
             // Get user secondary language user is selected
-            let userSecondaryLagnArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+            let userSecondaryLagnArr: Array = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
             
             for entry in languageList {
                 
@@ -91,7 +91,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Callback Function
-    func getPrimaryLanguageCallback(json: JSON) -> Void {
+    func getPrimaryLanguageCallback(_ json: JSON) -> Void {
         if json.isEmpty {
             // Close loading
             hideLoading()
@@ -110,7 +110,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
         
         if code == 1 {
             // Get user secondary language user is selected
-            let userSecondaryLagnArr: Array = NSUserDefaults.standardUserDefaults().objectForKey(USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
+            let userSecondaryLagnArr: Array = UserDefaults.standard.object(forKey: USER_SECONDARY_LANGUAGE_KEY) as? [Int] ?? [Int]()
             
             // login success
             let listTa = json["listLanguage"].arrayValue
@@ -128,11 +128,11 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
             }
             
             // Encode object to to NSData to store
-            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(languageItemsSave)
+            let encodedData = NSKeyedArchiver.archivedData(withRootObject: languageItemsSave)
             // Store language item
-            NSUserDefaults.standardUserDefaults().setObject(encodedData, forKey: LANGUAGES_SAVE)
+            UserDefaults.standard.set(encodedData, forKey: LANGUAGES_SAVE)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
             
@@ -144,7 +144,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
             hideLoading()
             
             // login fail --> show error message
-            self.showErrorMessage("Iron World", message: String(json["message"]))
+            self.showErrorMessage("Iron World", message: String(describing: json["message"]))
         }
     }
     
@@ -152,7 +152,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
     func savePrimaryLangToServer() {
         if primaryLangTemp != 0 {
             // Get user id
-            let userId = NSUserDefaults.standardUserDefaults().integerForKey(USER_ID_KEY)
+            let userId = UserDefaults.standard.integer(forKey: USER_ID_KEY)
             
             let body: String = "userId=" + String(userId) + "&langId=" + String(primaryLangTemp)
             
@@ -161,7 +161,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
                 
                 if code == 1 {
                     // Store new value on phone
-                    NSUserDefaults.standardUserDefaults().setInteger(self.primaryLangTemp, forKey: USER_PRIMARY_LANGUAGE_KEY)
+                    UserDefaults.standard.set(self.primaryLangTemp, forKey: USER_PRIMARY_LANGUAGE_KEY)
                     
                     // hide loading
                     self.hideLoading()
@@ -180,7 +180,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
                     self.hideLoading()
                     
                     // login fail --> show error message
-                    self.showErrorMessage("Iron World", message: String(json["message"]))
+                    self.showErrorMessage("Iron World", message: String(describing: json["message"]))
                 }
             })
         } else {
@@ -191,14 +191,14 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    @IBAction func didTapSave(sender: UIButton) {
+    @IBAction func didTapSave(_ sender: UIButton) {
         showLoading()
         // Save data to server
         savePrimaryLangToServer()
     }
     
-    @IBAction func didTapNext(sender: UIButton) {
-        if let parentVC = self.parentViewController {
+    @IBAction func didTapNext(_ sender: UIButton) {
+        if let parentVC = self.parent {
             if let parentVC = parentVC as? ReSelectPageViewController {
                 // parentVC is ReSelectPageViewController
                 
@@ -209,24 +209,24 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - TableView Function
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return primaryLangItems.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heightCell
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier(textCellIdentifier) as! CustomTableViewCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: textCellIdentifier) as! CustomTableViewCell
         
-        if self.primaryLangItems.count >= indexPath.row {
-            let lang = primaryLangItems[indexPath.row]
+        if self.primaryLangItems.count >= (indexPath as NSIndexPath).row {
+            let lang = primaryLangItems[(indexPath as NSIndexPath).row]
             
             cell.cellText.text = lang.name
             cell.tag = lang.id
@@ -237,12 +237,12 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
                 
             } else {
                 cell.cellBg.image = UIImage(named: "cell_bg_off")
-                cell.cellText.textColor = UIColor.whiteColor()
+                cell.cellText.textColor = UIColor.white
             }
         }
         
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         cell.clipsToBounds = true
         cell.layer.zPosition = -1
@@ -250,17 +250,17 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if IS_DEBUG {
-            print("Row \(indexPath.row) selected")
+            print("Row \((indexPath as NSIndexPath).row) selected")
         }
         
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath) as! CustomTableViewCell
+        let selectedCell = tableView.cellForRow(at: indexPath) as! CustomTableViewCell
         
         if primaryLangTemp == selectedCell.tag {
             // UnSelected this row
             selectedCell.cellBg.image = UIImage(named: "cell_bg_off")
-            selectedCell.cellText.textColor = UIColor.whiteColor()
+            selectedCell.cellText.textColor = UIColor.white
             
             // Set primary language to 0
             primaryLangTemp = 0
@@ -268,7 +268,7 @@ class ReSelectPrimaryViewController: UIViewController, UITableViewDelegate, UITa
             // Unselected row before
             for cell in tableView.visibleCells as! [CustomTableViewCell] {
                 cell.cellBg.image = UIImage(named: "cell_bg_off")
-                cell.cellText.textColor = UIColor.whiteColor()
+                cell.cellText.textColor = UIColor.white
             }
             
             

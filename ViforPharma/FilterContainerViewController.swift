@@ -26,12 +26,12 @@ class FilterContainerViewController: UIViewController, FilterPageViewControllerD
         }
     }
     
-    func filterPageViewController(filterPageViewController: FilterPageViewController,
+    func filterPageViewController(_ filterPageViewController: FilterPageViewController,
                                     didUpdatePageCount count: Int) {
         
     }
     
-    func filterPageViewController(filterPageViewController: FilterPageViewController,
+    func filterPageViewController(_ filterPageViewController: FilterPageViewController,
                                     didUpdatePageIndex index: Int) {
         currentPage = index
         
@@ -63,8 +63,8 @@ class FilterContainerViewController: UIViewController, FilterPageViewControllerD
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let filterPageViewController = segue.destinationViewController as? FilterPageViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let filterPageViewController = segue.destination as? FilterPageViewController {
             self.filterPageViewController = filterPageViewController
         }
     }
@@ -76,7 +76,7 @@ class FilterContainerViewController: UIViewController, FilterPageViewControllerD
             
             self.revealViewController().rearViewRevealWidth = 150
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
@@ -88,7 +88,7 @@ class FilterContainerViewController: UIViewController, FilterPageViewControllerD
     }
     
 
-    @IBAction func didTapInfo(sender: UIBarButtonItem) {
+    @IBAction func didTapInfo(_ sender: UIBarButtonItem) {
         // Set image for button
         if infoButton.tag == 0 {
             infoButton.tag = 1

@@ -20,10 +20,10 @@ class ArticleTopCell: UITableViewCell {
 
         
         
-        let maskPath = UIBezierPath(roundedRect: banner.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: CGSizeMake(8, 8))
+        let maskPath = UIBezierPath(roundedRect: banner.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 8, height: 8))
         let maskLayer = CAShapeLayer()
         maskLayer.frame = banner.bounds
-        maskLayer.path  = maskPath.CGPath
+        maskLayer.path  = maskPath.cgPath
         banner.layer.mask = maskLayer
         
         
@@ -34,7 +34,7 @@ class ArticleTopCell: UITableViewCell {
 //        bannerW.constant = self.contentView.frame.size.width
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
