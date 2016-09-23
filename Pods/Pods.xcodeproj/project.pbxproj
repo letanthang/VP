@@ -1,0 +1,748 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		006787B172E32A8D26970965B3A2AA48 /* PDFThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DED8B0D43D1BA255E1F0670CA4BBAE /* PDFThumbnailCell.swift */; };
+		126069090E528DD4DDE05A03F7B21150 /* PDFDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A006FE00ACA4F5D413F409D0F88371 /* PDFDocument.swift */; };
+		29B4A24D036CA9DF9733FCA472B2A5E9 /* TiledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DBDC489CED4D1551DF8E6BF5B4E660 /* TiledView.swift */; };
+		313B8180E51FD085ADA3E5E7E3743CA3 /* PDFReader-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CF125443CA4DE397C5E12815F5AECB3B /* PDFReader-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45EC6983F6A40181D0689A5E2167ABA9 /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B26B01770BCC9AAF7DCE934D623C70 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5228B25C4CD9084968DD6B00774EC073 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA64AAEFC459C40389402B50EA9C4C8A /* PDFViewController.swift */; };
+		525D0C4B60D48E331E80E278148A9CB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		6758EC0C75FF3B7F3F9EADC244F33443 /* Pods-ViforPharma-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C43AAC5E8808A102EDE8A0F56B08B7E2 /* Pods-ViforPharma-dummy.m */; };
+		74A82272AF32C367A84FA9D98FDCEF2D /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA8C6C41BF928A657849205FC35E543 /* SwiftyJSON-dummy.m */; };
+		8F1DFF4C622BFB35A108DB1024225920 /* PDFPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B4AAFF6A7B480A67E3D01D0F3647F1 /* PDFPageView.swift */; };
+		8FDBCBB719A81B9098086817BA41F26A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		971DF0575B08469E8A2D8DA4737BCF87 /* PDFReader-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 03167F3A43057FC93BBE70811826F9A9 /* PDFReader-dummy.m */; };
+		AC8B7EA9A32D209BB37595EFC103E17B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		B9520E0D4708A2E945F2D43428269093 /* PDFReader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72F1335A1D802350CF9B9D779E620381 /* PDFReader.storyboard */; };
+		D295E4D5750DC609D573EAD166D3C3C4 /* PDFPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACE6B28C132F9CF22611319E5C3260 /* PDFPageCollectionViewCell.swift */; };
+		D4DFB8785C0894C1F280F0D471FB39B7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B933AAEB020955E31D5EF29C04E272A /* SwiftyJSON.swift */; };
+		E3E3DB6EB5092D760F2D6AD8B618C828 /* PDFThumbnailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD99B821A0B5C7294A8058CF7CCD9FB5 /* PDFThumbnailCollectionViewController.swift */; };
+		E76037A98B3035D983F43F2F426492EF /* Pods-ViforPharma-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C012D8C47F1510581733F23B241C341 /* Pods-ViforPharma-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7645BAA9D8BD616B4CB4ADD65B67D571 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0294F2582F1AE5E89A4E9AF342A6C271;
+			remoteInfo = PDFReader;
+		};
+		C36A8D08530A08D344FA18F66148E24D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AE795D5E83C6EFF44BB487B897FF900;
+			remoteInfo = SwiftyJSON;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03167F3A43057FC93BBE70811826F9A9 /* PDFReader-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PDFReader-dummy.m"; sourceTree = "<group>"; };
+		173288274D136988599FCF9D1E830AA3 /* PDFReader-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PDFReader-prefix.pch"; sourceTree = "<group>"; };
+		1FACE6B28C132F9CF22611319E5C3260 /* PDFPageCollectionViewCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFPageCollectionViewCell.swift; path = Sources/Classes/PDFPageCollectionViewCell.swift; sourceTree = "<group>"; };
+		230D6A56DF3B9F14B337B9B65819B356 /* Pods-ViforPharma-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ViforPharma-acknowledgements.markdown"; sourceTree = "<group>"; };
+		36DBDC489CED4D1551DF8E6BF5B4E660 /* TiledView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TiledView.swift; path = Sources/Classes/TiledView.swift; sourceTree = "<group>"; };
+		42AF89758F631760DA0864467F342F8A /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		45CE8B72B530EDE851C55AFD4D0587D1 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		56B4AAFF6A7B480A67E3D01D0F3647F1 /* PDFPageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFPageView.swift; path = Sources/Classes/PDFPageView.swift; sourceTree = "<group>"; };
+		5B7771F105F03ED7115235FDED4854F6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B83B8B335FD94386483E99C7E3D5F5D /* Pods-ViforPharma-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ViforPharma-acknowledgements.plist"; sourceTree = "<group>"; };
+		72F1335A1D802350CF9B9D779E620381 /* PDFReader.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = PDFReader.storyboard; path = Sources/Assets/PDFReader.storyboard; sourceTree = "<group>"; };
+		75A46DE194F8A62EDD77883351FE3F46 /* Pods-ViforPharma-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViforPharma-frameworks.sh"; sourceTree = "<group>"; };
+		77DFA78B73650CBD1D584D4A03464A2A /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		78ED249CB93886D7F2D20A1A34E533F6 /* PDFReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B0A8297BEB31D873B9C0F9A336BF39B /* Pods-ViforPharma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViforPharma.release.xcconfig"; sourceTree = "<group>"; };
+		862DB16C2B6B5C2A1B5F45D07E1E579C /* PDFReader.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = PDFReader.modulemap; sourceTree = "<group>"; };
+		8B933AAEB020955E31D5EF29C04E272A /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		8C012D8C47F1510581733F23B241C341 /* Pods-ViforPharma-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ViforPharma-umbrella.h"; sourceTree = "<group>"; };
+		90A006FE00ACA4F5D413F409D0F88371 /* PDFDocument.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFDocument.swift; path = Sources/Classes/PDFDocument.swift; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		99DED8B0D43D1BA255E1F0670CA4BBAE /* PDFThumbnailCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFThumbnailCell.swift; path = Sources/Classes/PDFThumbnailCell.swift; sourceTree = "<group>"; };
+		9EA81890C2A193FC829014EB341FCD6D /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A39C539A823317AF58D372D352BCB84E /* Pods_ViforPharma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViforPharma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A65B6BD28435CA73CC4ADCB7B24805B0 /* Pods-ViforPharma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ViforPharma.debug.xcconfig"; sourceTree = "<group>"; };
+		AA46C9BB9A2C600E9E6F980DCF9468D5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA64AAEFC459C40389402B50EA9C4C8A /* PDFViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFViewController.swift; path = Sources/Classes/PDFViewController.swift; sourceTree = "<group>"; };
+		BD99B821A0B5C7294A8058CF7CCD9FB5 /* PDFThumbnailCollectionViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PDFThumbnailCollectionViewController.swift; path = Sources/Classes/PDFThumbnailCollectionViewController.swift; sourceTree = "<group>"; };
+		C2B26B01770BCC9AAF7DCE934D623C70 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
+		C43AAC5E8808A102EDE8A0F56B08B7E2 /* Pods-ViforPharma-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ViforPharma-dummy.m"; sourceTree = "<group>"; };
+		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CF125443CA4DE397C5E12815F5AECB3B /* PDFReader-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PDFReader-umbrella.h"; sourceTree = "<group>"; };
+		CFAF78744FD6B128B90AA0D12C439A11 /* Pods-ViforPharma.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ViforPharma.modulemap"; sourceTree = "<group>"; };
+		D42E8465482BC4EC5BA28776A36997E7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEDA13EC21DD8B86143D60C6416D2169 /* Pods-ViforPharma-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ViforPharma-resources.sh"; sourceTree = "<group>"; };
+		EBA8C6C41BF928A657849205FC35E543 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
+		EFA012D461670DBEECF6CEC8237C7CA1 /* PDFReader.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PDFReader.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1E51F4F91992FA6157D9B1B7E778AF4B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC8B7EA9A32D209BB37595EFC103E17B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A63508F6B296FB1C4D59040112F35328 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FDBCBB719A81B9098086817BA41F26A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8C9EEBAFCE1E0139AD548D1DF46472B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				525D0C4B60D48E331E80E278148A9CB7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03BA8C99A690D6085F055F1080873006 /* Pods-ViforPharma */ = {
+			isa = PBXGroup;
+			children = (
+				D42E8465482BC4EC5BA28776A36997E7 /* Info.plist */,
+				CFAF78744FD6B128B90AA0D12C439A11 /* Pods-ViforPharma.modulemap */,
+				230D6A56DF3B9F14B337B9B65819B356 /* Pods-ViforPharma-acknowledgements.markdown */,
+				6B83B8B335FD94386483E99C7E3D5F5D /* Pods-ViforPharma-acknowledgements.plist */,
+				C43AAC5E8808A102EDE8A0F56B08B7E2 /* Pods-ViforPharma-dummy.m */,
+				75A46DE194F8A62EDD77883351FE3F46 /* Pods-ViforPharma-frameworks.sh */,
+				DEDA13EC21DD8B86143D60C6416D2169 /* Pods-ViforPharma-resources.sh */,
+				8C012D8C47F1510581733F23B241C341 /* Pods-ViforPharma-umbrella.h */,
+				A65B6BD28435CA73CC4ADCB7B24805B0 /* Pods-ViforPharma.debug.xcconfig */,
+				7B0A8297BEB31D873B9C0F9A336BF39B /* Pods-ViforPharma.release.xcconfig */,
+			);
+			name = "Pods-ViforPharma";
+			path = "Target Support Files/Pods-ViforPharma";
+			sourceTree = "<group>";
+		};
+		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		6FE32F1E60F994FC6E1D8AD7FBAF5683 /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				8B933AAEB020955E31D5EF29C04E272A /* SwiftyJSON.swift */,
+				9BDFDCD45A691CC9B2D9C8A46A87645E /* Support Files */,
+			);
+			path = SwiftyJSON;
+			sourceTree = "<group>";
+		};
+		7B07511F7032C2EB7284DFB54B639731 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8DEB6AB88E7DCFB00AF88DD54C3B7811 /* PDFReader */,
+				6FE32F1E60F994FC6E1D8AD7FBAF5683 /* SwiftyJSON */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				7B07511F7032C2EB7284DFB54B639731 /* Pods */,
+				91CA145CA58541D2188C769A2E95A7C8 /* Products */,
+				FD18D7C8D0918D125C27592ECB58FAD8 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8DEB6AB88E7DCFB00AF88DD54C3B7811 /* PDFReader */ = {
+			isa = PBXGroup;
+			children = (
+				90A006FE00ACA4F5D413F409D0F88371 /* PDFDocument.swift */,
+				1FACE6B28C132F9CF22611319E5C3260 /* PDFPageCollectionViewCell.swift */,
+				56B4AAFF6A7B480A67E3D01D0F3647F1 /* PDFPageView.swift */,
+				99DED8B0D43D1BA255E1F0670CA4BBAE /* PDFThumbnailCell.swift */,
+				BD99B821A0B5C7294A8058CF7CCD9FB5 /* PDFThumbnailCollectionViewController.swift */,
+				AA64AAEFC459C40389402B50EA9C4C8A /* PDFViewController.swift */,
+				36DBDC489CED4D1551DF8E6BF5B4E660 /* TiledView.swift */,
+				BE7ABAC57CA70128D74DC049FC5CC7AF /* Resources */,
+				F0952CD7E1B587BA2741F50979369D9F /* Support Files */,
+			);
+			path = PDFReader;
+			sourceTree = "<group>";
+		};
+		91CA145CA58541D2188C769A2E95A7C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				78ED249CB93886D7F2D20A1A34E533F6 /* PDFReader.framework */,
+				A39C539A823317AF58D372D352BCB84E /* Pods_ViforPharma.framework */,
+				9EA81890C2A193FC829014EB341FCD6D /* SwiftyJSON.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BDFDCD45A691CC9B2D9C8A46A87645E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				AA46C9BB9A2C600E9E6F980DCF9468D5 /* Info.plist */,
+				77DFA78B73650CBD1D584D4A03464A2A /* SwiftyJSON.modulemap */,
+				45CE8B72B530EDE851C55AFD4D0587D1 /* SwiftyJSON.xcconfig */,
+				EBA8C6C41BF928A657849205FC35E543 /* SwiftyJSON-dummy.m */,
+				42AF89758F631760DA0864467F342F8A /* SwiftyJSON-prefix.pch */,
+				C2B26B01770BCC9AAF7DCE934D623C70 /* SwiftyJSON-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftyJSON";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE7ABAC57CA70128D74DC049FC5CC7AF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				72F1335A1D802350CF9B9D779E620381 /* PDFReader.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F0952CD7E1B587BA2741F50979369D9F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5B7771F105F03ED7115235FDED4854F6 /* Info.plist */,
+				862DB16C2B6B5C2A1B5F45D07E1E579C /* PDFReader.modulemap */,
+				EFA012D461670DBEECF6CEC8237C7CA1 /* PDFReader.xcconfig */,
+				03167F3A43057FC93BBE70811826F9A9 /* PDFReader-dummy.m */,
+				173288274D136988599FCF9D1E830AA3 /* PDFReader-prefix.pch */,
+				CF125443CA4DE397C5E12815F5AECB3B /* PDFReader-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PDFReader";
+			sourceTree = "<group>";
+		};
+		FD18D7C8D0918D125C27592ECB58FAD8 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				03BA8C99A690D6085F055F1080873006 /* Pods-ViforPharma */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		11235108CAB61517EF0130F582B1A201 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E76037A98B3035D983F43F2F426492EF /* Pods-ViforPharma-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32976EB0367CE26EC2A837C61789BE30 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				313B8180E51FD085ADA3E5E7E3743CA3 /* PDFReader-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A395FC4BE86998DE46F0C276F5F7FAA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45EC6983F6A40181D0689A5E2167ABA9 /* SwiftyJSON-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0294F2582F1AE5E89A4E9AF342A6C271 /* PDFReader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7216BF711BAADC41DDF454BDC2554D4 /* Build configuration list for PBXNativeTarget "PDFReader" */;
+			buildPhases = (
+				60313E69367E4EDF1216A93D209E2ED9 /* Sources */,
+				F8C9EEBAFCE1E0139AD548D1DF46472B /* Frameworks */,
+				3A90CAED466F56BC1F233CAB65814DE0 /* Resources */,
+				32976EB0367CE26EC2A837C61789BE30 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PDFReader;
+			productName = PDFReader;
+			productReference = 78ED249CB93886D7F2D20A1A34E533F6 /* PDFReader.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3AE795D5E83C6EFF44BB487B897FF900 /* SwiftyJSON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E023EB2029511C1B2B33C07EF1832D24 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildPhases = (
+				81C6AD8A6264B8B3B53F5622B8FB34BA /* Sources */,
+				A63508F6B296FB1C4D59040112F35328 /* Frameworks */,
+				9A395FC4BE86998DE46F0C276F5F7FAA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyJSON;
+			productName = SwiftyJSON;
+			productReference = 9EA81890C2A193FC829014EB341FCD6D /* SwiftyJSON.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		875E5CB46D63E74EF684A12787E64CF8 /* Pods-ViforPharma */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42F4E75C8BC51FCF165CFBB9740664D1 /* Build configuration list for PBXNativeTarget "Pods-ViforPharma" */;
+			buildPhases = (
+				DF4E18903E1A0C98F8E63EBB60D8D7A7 /* Sources */,
+				1E51F4F91992FA6157D9B1B7E778AF4B /* Frameworks */,
+				11235108CAB61517EF0130F582B1A201 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				892374BD78830F8F002EA219B40FFAE2 /* PBXTargetDependency */,
+				E6B70D152EB5662990E2D69C96F41C69 /* PBXTargetDependency */,
+			);
+			name = "Pods-ViforPharma";
+			productName = "Pods-ViforPharma";
+			productReference = A39C539A823317AF58D372D352BCB84E /* Pods_ViforPharma.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 91CA145CA58541D2188C769A2E95A7C8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0294F2582F1AE5E89A4E9AF342A6C271 /* PDFReader */,
+				875E5CB46D63E74EF684A12787E64CF8 /* Pods-ViforPharma */,
+				3AE795D5E83C6EFF44BB487B897FF900 /* SwiftyJSON */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3A90CAED466F56BC1F233CAB65814DE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9520E0D4708A2E945F2D43428269093 /* PDFReader.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		60313E69367E4EDF1216A93D209E2ED9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				126069090E528DD4DDE05A03F7B21150 /* PDFDocument.swift in Sources */,
+				D295E4D5750DC609D573EAD166D3C3C4 /* PDFPageCollectionViewCell.swift in Sources */,
+				8F1DFF4C622BFB35A108DB1024225920 /* PDFPageView.swift in Sources */,
+				971DF0575B08469E8A2D8DA4737BCF87 /* PDFReader-dummy.m in Sources */,
+				006787B172E32A8D26970965B3A2AA48 /* PDFThumbnailCell.swift in Sources */,
+				E3E3DB6EB5092D760F2D6AD8B618C828 /* PDFThumbnailCollectionViewController.swift in Sources */,
+				5228B25C4CD9084968DD6B00774EC073 /* PDFViewController.swift in Sources */,
+				29B4A24D036CA9DF9733FCA472B2A5E9 /* TiledView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81C6AD8A6264B8B3B53F5622B8FB34BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74A82272AF32C367A84FA9D98FDCEF2D /* SwiftyJSON-dummy.m in Sources */,
+				D4DFB8785C0894C1F280F0D471FB39B7 /* SwiftyJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF4E18903E1A0C98F8E63EBB60D8D7A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6758EC0C75FF3B7F3F9EADC244F33443 /* Pods-ViforPharma-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		892374BD78830F8F002EA219B40FFAE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFReader;
+			target = 0294F2582F1AE5E89A4E9AF342A6C271 /* PDFReader */;
+			targetProxy = 7645BAA9D8BD616B4CB4ADD65B67D571 /* PBXContainerItemProxy */;
+		};
+		E6B70D152EB5662990E2D69C96F41C69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftyJSON;
+			target = 3AE795D5E83C6EFF44BB487B897FF900 /* SwiftyJSON */;
+			targetProxy = C36A8D08530A08D344FA18F66148E24D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1224095FB50DF28D9B65D887344B217A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A65B6BD28435CA73CC4ADCB7B24805B0 /* Pods-ViforPharma.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ViforPharma/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ViforPharma/Pods-ViforPharma.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ViforPharma;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1A5879F916E64FD4FBC42D594BC8DCAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0A8297BEB31D873B9C0F9A336BF39B /* Pods-ViforPharma.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ViforPharma/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ViforPharma/Pods-ViforPharma.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ViforPharma;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1CD6A4134933DBD1B2ACDA835FAA7AF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45CE8B72B530EDE851C55AFD4D0587D1 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		60817712E9336EC4CB6175DDA6178A17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA012D461670DBEECF6CEC8237C7CA1 /* PDFReader.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PDFReader/PDFReader-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PDFReader/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PDFReader/PDFReader.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = PDFReader;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AADB9822762AD81BBAE83335B2AB1EB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B1B5EB0850F98CB5AECDB015B690777F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		C109E471EC0A2A44CF36E82C15DA6D2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA012D461670DBEECF6CEC8237C7CA1 /* PDFReader.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PDFReader/PDFReader-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PDFReader/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PDFReader/PDFReader.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = PDFReader;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EC17ED4F3A55416A6C17A2337275CE24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45CE8B72B530EDE851C55AFD4D0587D1 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1B5EB0850F98CB5AECDB015B690777F /* Debug */,
+				AADB9822762AD81BBAE83335B2AB1EB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42F4E75C8BC51FCF165CFBB9740664D1 /* Build configuration list for PBXNativeTarget "Pods-ViforPharma" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1224095FB50DF28D9B65D887344B217A /* Debug */,
+				1A5879F916E64FD4FBC42D594BC8DCAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7216BF711BAADC41DDF454BDC2554D4 /* Build configuration list for PBXNativeTarget "PDFReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60817712E9336EC4CB6175DDA6178A17 /* Debug */,
+				C109E471EC0A2A44CF36E82C15DA6D2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E023EB2029511C1B2B33C07EF1832D24 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC17ED4F3A55416A6C17A2337275CE24 /* Debug */,
+				1CD6A4134933DBD1B2ACDA835FAA7AF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

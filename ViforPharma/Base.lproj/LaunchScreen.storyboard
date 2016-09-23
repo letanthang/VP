@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_1" translatesAutoresizingMaskIntoConstraints="NO" id="hlA-c1-dV7">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="66l-sO-Aji"/>
+                                    <constraint firstAttribute="height" constant="800" id="wp4-s3-GQE"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="66l-sO-Aji"/>
+                                        <exclude reference="wp4-s3-GQE"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="66l-sO-Aji"/>
+                                        <include reference="wp4-s3-GQE"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0sL-No-Ia9">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="JiI-W4-VCR"/>
+                                    <constraint firstAttribute="height" constant="130" id="WTv-74-bzA"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="JiI-W4-VCR"/>
+                                        <exclude reference="WTv-74-bzA"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="JiI-W4-VCR"/>
+                                        <exclude reference="WTv-74-bzA"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hlA-c1-dV7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="FHL-8u-ZQz"/>
+                            <constraint firstItem="hlA-c1-dV7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="GLo-cm-wU8"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="hlA-c1-dV7" secondAttribute="bottom" id="MP6-fc-gbh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hlA-c1-dV7" secondAttribute="trailing" constant="-20" id="Oi2-QW-iIb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0sL-No-Ia9" secondAttribute="trailing" id="Okg-sD-Hnd"/>
+                            <constraint firstItem="0sL-No-Ia9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fo8-Dl-CJi"/>
+                            <constraint firstItem="0sL-No-Ia9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="geU-bB-N6B"/>
+                            <constraint firstItem="0sL-No-Ia9" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="iZm-vI-N2p"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="hlA-c1-dV7"/>
+                                <exclude reference="0sL-No-Ia9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="MP6-fc-gbh"/>
+                                <exclude reference="Okg-sD-Hnd"/>
+                                <exclude reference="fo8-Dl-CJi"/>
+                                <exclude reference="geU-bB-N6B"/>
+                                <exclude reference="iZm-vI-N2p"/>
+                                <exclude reference="FHL-8u-ZQz"/>
+                                <exclude reference="GLo-cm-wU8"/>
+                                <exclude reference="Oi2-QW-iIb"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="hlA-c1-dV7"/>
+                                <include reference="0sL-No-Ia9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="MP6-fc-gbh"/>
+                                <include reference="Okg-sD-Hnd"/>
+                                <include reference="fo8-Dl-CJi"/>
+                                <include reference="geU-bB-N6B"/>
+                                <include reference="iZm-vI-N2p"/>
+                                <include reference="FHL-8u-ZQz"/>
+                                <include reference="GLo-cm-wU8"/>
+                                <include reference="Oi2-QW-iIb"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.5" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg_1" width="1242" height="2206"/>
+        <image name="logo" width="621" height="290"/>
+    </resources>
+</document>

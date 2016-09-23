@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="332" id="KGk-i7-Jjw" customClass="ArticleTopCell" customModule="ViforPharma" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="450" height="310"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="450" height="309"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKn-1a-rmh">
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test2" translatesAutoresizingMaskIntoConstraints="NO" id="HaR-d0-fQX">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HaR-d0-fQX" secondAttribute="height" multiplier="71:32" constant="-0.21875" id="8AK-gb-Cti"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zu3-XS-W9k">
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.27058823529411763" green="0.3529411764705882" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfA-Ii-pyo">
+                                <string key="text">Label
+abc
+abc
+abc</string>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="HaR-d0-fQX" secondAttribute="trailing" constant="-1" id="3HQ-l5-6Yx"/>
+                            <constraint firstItem="zu3-XS-W9k" firstAttribute="leading" secondItem="dKn-1a-rmh" secondAttribute="leading" constant="8" id="BSi-99-dt8"/>
+                            <constraint firstItem="HaR-d0-fQX" firstAttribute="leading" secondItem="dKn-1a-rmh" secondAttribute="leading" constant="-1" id="KAX-SQ-tVi"/>
+                            <constraint firstAttribute="trailing" secondItem="IfA-Ii-pyo" secondAttribute="trailing" constant="8" id="Ngc-gY-Fad"/>
+                            <constraint firstItem="IfA-Ii-pyo" firstAttribute="top" secondItem="zu3-XS-W9k" secondAttribute="bottom" constant="4" id="eAQ-fq-ZW7"/>
+                            <constraint firstItem="HaR-d0-fQX" firstAttribute="top" secondItem="dKn-1a-rmh" secondAttribute="top" id="mwo-e3-Pi9"/>
+                            <constraint firstItem="IfA-Ii-pyo" firstAttribute="leading" secondItem="dKn-1a-rmh" secondAttribute="leading" constant="8" id="s6k-DI-fUN"/>
+                            <constraint firstItem="zu3-XS-W9k" firstAttribute="top" secondItem="HaR-d0-fQX" secondAttribute="bottom" constant="7" id="uvh-vC-9hG"/>
+                            <constraint firstAttribute="trailing" secondItem="zu3-XS-W9k" secondAttribute="trailing" constant="8" id="xU2-kE-9og"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="dKn-1a-rmh" secondAttribute="bottom" id="3hx-Dt-N2h"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dKn-1a-rmh" secondAttribute="trailing" constant="4" id="AfJ-1L-L6e"/>
+                    <constraint firstItem="dKn-1a-rmh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="BaH-Id-QGT"/>
+                    <constraint firstItem="dKn-1a-rmh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="uN3-c0-qfj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="banner" destination="HaR-d0-fQX" id="g9J-ga-0yo"/>
+                <outlet property="bgItem" destination="dKn-1a-rmh" id="yUv-Zg-GVO"/>
+                <outlet property="content" destination="IfA-Ii-pyo" id="UXO-yg-xfx"/>
+                <outlet property="name" destination="zu3-XS-W9k" id="AJL-et-Obr"/>
+            </connections>
+            <point key="canvasLocation" x="272" y="326"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="test2" width="1175" height="530"/>
+    </resources>
+</document>
