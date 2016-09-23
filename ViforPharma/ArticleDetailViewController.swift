@@ -318,7 +318,7 @@ class ArticleDetailViewController: UIViewController, URLSessionDownloadDelegate 
         downloadTask = nil
         
         if (error != nil) {
-            print(error?.description)
+            print(error?.localizedDescription)
         }else{
             print("The task finished transferring data successfully")
         }
